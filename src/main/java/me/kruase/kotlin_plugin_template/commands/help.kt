@@ -1,7 +1,7 @@
-package me.kruase.kotlinplugintemplate.commands
+package me.kruase.kotlin_plugin_template.commands
 
 import org.bukkit.command.CommandSender
-import me.kruase.kotlinplugintemplate.Template.Companion.tConfig
+import me.kruase.kotlin_plugin_template.Template.Companion.userConfig
 
 
 fun help(sender: CommandSender, args: Array<out String>) {
@@ -10,10 +10,10 @@ fun help(sender: CommandSender, args: Array<out String>) {
     if (args.size > 1) throw IllegalArgumentException()
 
     when (args.getOrNull(0)) {
-        null -> tConfig.messages.help.keys
+        null -> userConfig.messages.help.keys
             .filter { sender.hasPermission("template.${it.replace("-", ".")}") || it == "header"}
-            .forEach { sender.sendMessage(arrayOf(tConfig.messages.help[it])) }
-        in tConfig.messages.help.keys - "header" -> sender.sendMessage(arrayOf(tConfig.messages.help[args[0]]))
+            .forEach { sender.sendMessage(arrayOf(userConfig.messages.help[it])) }
+        in userConfig.messages.help.keys - "header" -> sender.sendMessage(arrayOf(userConfig.messages.help[args[0]]))
         else -> throw IllegalArgumentException()
     }
 }

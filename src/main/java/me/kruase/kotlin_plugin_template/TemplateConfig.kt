@@ -1,4 +1,4 @@
-package me.kruase.kotlinplugintemplate
+package me.kruase.kotlin_plugin_template
 
 import java.io.File
 import org.bukkit.plugin.Plugin
@@ -41,4 +41,6 @@ data class MessagesConfig(private val config: FileConfiguration) {
         .getKeys(false).associateWith { config.getString("messages.help.$it")!! }
     val error: Map<String, String> = config.getConfigurationSection("messages.error")!!
         .getKeys(false).associateWith { config.getString("messages.error.$it")!! }
+    val info: Map<String, String> = config.getConfigurationSection("messages.info")!!
+        .getKeys(false).associateWith { config.getString("messages.info.$it")!! }
 }

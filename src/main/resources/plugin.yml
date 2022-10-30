@@ -1,13 +1,10 @@
 name: Template
 version: '${project.version}'
-main: me.kruase.kotlinplugintemplate.Template
-api-version: 1.16
+main: me.kruase.kotlin_plugin_template.Template
+api-version: 1.16.3
 authors: [ KruASe ]
 
 description: Template project for kotlin spigot plugins
-
-libraries:
-    - org.jetbrains.kotlin:kotlin-stdlib:1.7.10
 
 commands:
     template:
@@ -15,16 +12,18 @@ commands:
         permission: template.help
         usage: |-
             §7Run §6/help <command> [n] §7to get page n of help
-            §a/<command> help [command] §r- Show help for given command, for available commands otherwise
+            §a/<command> §6help §a[command] §r- Show help for given command, for available commands otherwise
+            §a/<command> §6reload §r- Reload config
+            §cWARNING: §eCommands listed here might be unavailable for you, to get help for available commands run §a/<command> help
         aliases:
             - tmp
 
 permissions:
     template.help:
-        description: Allows to use §a/tmp help §r(lists only available commands)
+        description: Allows to use §a/tmp §6help §r(lists only available commands)
         default: true
     template.reload:
-        description: Allows to use §a/tmp reload
+        description: Allows to use §a/tmp §6reload
         default: op
     template.admin:
         description: Refers to §template.reload §rby default

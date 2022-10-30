@@ -17,6 +17,7 @@ A Spigot (Bukkit) Minecraft plugin that...
 | Command               | Description                                                   |
 |-----------------------|---------------------------------------------------------------|
 | `/tmp help [command]` | Show help for given command, for available commands otherwise |
+| `/tmp reload`         | Reload config                                                 |
 
 
 ## Configuration ([default](/src/main/resources/config.yml))
@@ -29,13 +30,14 @@ A Spigot (Bukkit) Minecraft plugin that...
 
 ## Permissions
 
-| Permission node | Default | Description                                               |
-|-----------------|---------|-----------------------------------------------------------|
-| `template.help` | true    | Allows to use `/tmp help` (lists only available commands) |
+| Permission node   | Default | Description                                               |
+|-------------------|---------|-----------------------------------------------------------|
+| `template.help`   | true    | Allows to use `/tmp help` (lists only available commands) |
+| `template.reload` | op      | Allows to use `/tmp reload`                               |
+| `template.admin`  | op      | Refers to `template.reload` by default                    |
 
 
 ## Special thanks to:
 
 - [Legitimoose](https://www.youtube.com/c/Legitimoose) for amazing Paper (Bukkit) plugin (in Kotlin) project setup [tutorial](https://youtu.be/5DBJcz0ceaw)
-- [This portuguese guy](https://www.youtube.com/user/ReiDaViadagi) for showing me that I should add `kotlin-stdlib` to `plugin.yml`'s `libraries` section
 - [BeBr0](https://www.youtube.com/c/BeBr0) for Spigot (Bukkit) plugin development [tutorial [ru]](https://youtube.com/playlist?list=PLlLq-eYkh0bB_uyZN4NdzkxLBs9glZmIT) with very clear API explanation
