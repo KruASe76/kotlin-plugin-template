@@ -1,7 +1,6 @@
 package me.kruase.kotlin_plugin_template
 
 import java.io.File
-import org.bukkit.plugin.Plugin
 import org.bukkit.configuration.file.FileConfiguration
 
 
@@ -9,30 +8,30 @@ data class TemplateConfig(private val config: FileConfiguration) {
     val messages = MessagesConfig(config)
 }
 
-fun getTemplateConfig(plugin: Plugin): TemplateConfig {
+fun Template.getUserConfig(): TemplateConfig {
     return try {
-        plugin.saveDefaultConfig()
-        plugin.reloadConfig()
-        TemplateConfig(plugin.config)
+        saveDefaultConfig()
+        reloadConfig()
+        TemplateConfig(config)
     } catch (e: Exception) {
         when (e) {
             is NullPointerException, is NumberFormatException -> {
-                newDefaultConfig(plugin)
-                TemplateConfig(plugin.config)
+                newDefaultConfig()
+                TemplateConfig(config)
             }
             else -> throw e
         }
-    }.also { plugin.logger.info("Config loaded!") }
+    }.also { logger.info("Config loaded!") }
 }
 
-fun newDefaultConfig(plugin: Plugin) {
-    plugin.logger.severe("Invalid Template config detected! Creating a new one (default)...")
-    File(plugin.dataFolder, "config.yml").renameTo(
-        File(plugin.dataFolder, "config.yml.old-${System.currentTimeMillis()}")
+fun Template.newDefaultConfig() {
+    logger.severe("Invalid $name config detected! Creating a new one (default)...")
+    File(dataFolder, "config.yml").renameTo(
+        File(dataFolder, "config.yml.old-${System.currentTimeMillis()}")
     )
-    plugin.saveDefaultConfig()
-    plugin.reloadConfig()
-    plugin.logger.info("New (default) config created!")
+    saveDefaultConfig()
+    reloadConfig()
+    logger.info("New (default) config created!")
 }
 
 

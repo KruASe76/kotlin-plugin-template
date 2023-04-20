@@ -21,7 +21,7 @@ class Template : JavaPlugin() {
 
     override fun onEnable() {
         instance = this
-        userConfig = getTemplateConfig(instance)
+        userConfig = getUserConfig()
 
         getCommand("template")!!.setExecutor(TemplateCommands())
     }

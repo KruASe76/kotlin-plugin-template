@@ -38,7 +38,7 @@ class TemplateCommands : TabExecutor {
                 "help" -> help(sender, args.drop(1).toTypedArray())
                 "reload" -> {
                     if (!sender.hasPermission("template.reload")) throw UnsupportedOperationException()
-                    Template.userConfig = getTemplateConfig(Template.instance)
+                    Template.userConfig = Template.instance.getUserConfig()
                 }
             }
         } catch (e: UnsupportedOperationException) {
