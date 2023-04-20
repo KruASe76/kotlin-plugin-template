@@ -12,6 +12,7 @@ A Spigot (Bukkit) Minecraft plugin that...
 ## Usage
 
 ### Commands
+
 `/template` is the main plugin command, which has the alias `/tmp`.
 
 | Command               | Description                                                   |
@@ -41,3 +42,8 @@ A Spigot (Bukkit) Minecraft plugin that...
 
 - [Legitimoose](https://www.youtube.com/c/Legitimoose) for amazing Paper (Bukkit) plugin (in Kotlin) project setup [tutorial](https://youtu.be/5DBJcz0ceaw)
 - [BeBr0](https://www.youtube.com/c/BeBr0) for Spigot (Bukkit) plugin development [tutorial [RU]](https://youtube.com/playlist?list=PLlLq-eYkh0bB_uyZN4NdzkxLBs9glZmIT) with very clear API explanation
+
+
+## Copyright
+
+The project itself is distributed under [GNU GPLv3](./LICENSE).
