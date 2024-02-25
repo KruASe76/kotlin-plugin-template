@@ -24,11 +24,11 @@ class TemplateCommands : TabExecutor {
                 sender.hasPluginPermission("help") -> when (fullArgs.getOrNull(1)) {
                     null -> Template.userConfig.messages.help.keys
                         .filter { sender.hasPluginPermission(it.replace("-", ".")) } - "header"
-                    else -> listOf()
+                    else -> emptyList()
                 }
-                else -> listOf()
+                else -> emptyList()
             }
-            else -> listOf()
+            else -> emptyList()
         }
     }
 
