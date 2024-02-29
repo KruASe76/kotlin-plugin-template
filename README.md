@@ -20,7 +20,7 @@ A Spigot (Bukkit) Minecraft plugin that...
 
 ### Commands
 
-`/template` is the main plugin command, which has the alias `/tmp`.
+`/template` is the main plugin command, which has an alias `/tmp`.
 
 | Command               | Description                                                   |
 |-----------------------|---------------------------------------------------------------|
