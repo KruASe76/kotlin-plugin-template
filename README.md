@@ -1,5 +1,12 @@
 # kotlin-plugin-template
 
+![](https://img.shields.io/badge/MINECRAFT-1.16+-966C4A?style=for-the-badge&labelColor=53AC56)
+![](https://img.shields.io/badge/JAVA-1.8+-5283A2?style=for-the-badge&labelColor=E86F00)
+
+[Modrinth]() ·
+[SpigotMC]() ·
+[CurseForge]()
+
 A Spigot (Bukkit) Minecraft plugin that...
 
 
