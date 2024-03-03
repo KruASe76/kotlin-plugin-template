@@ -35,8 +35,8 @@ class TemplateCommands : TabExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         try {
             when (args.getOrNull(0)) {
-                null -> help(sender, arrayOf())
-                "help" -> help(sender, args.drop(1).toTypedArray())
+                null -> help(sender, emptyList())
+                "help" -> help(sender, args.drop(1))
                 "reload" -> {
                     if (!sender.hasPluginPermission("reload")) throw UnsupportedOperationException()
                     Template.userConfig = Template.instance.getUserConfig()
@@ -46,7 +46,7 @@ class TemplateCommands : TabExecutor {
             sender.sendMessage(
                 "${ChatColor.RED}${Template.userConfig.messages.error["no-permission"] ?: "Error: no-permission"}"
             )
-        } catch (e: IllegalArgumentException) {
+        } catch (e: AssertionError) {
             sender.sendMessage(
                 "${ChatColor.RED}${Template.userConfig.messages.error["invalid-command"] ?: "Error: invalid-command"}"
             )

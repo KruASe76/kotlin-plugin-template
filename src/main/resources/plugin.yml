@@ -26,7 +26,7 @@ permissions:
         description: Allows to use §a/tmp §6reload
         default: op
     template.admin:
-        description: Refers to §template.reload §rby default
+        description: Refers to §2template.reload §rby default
         default: op
         children:
             template.reload: true
