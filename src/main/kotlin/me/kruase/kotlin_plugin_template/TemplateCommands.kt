@@ -1,5 +1,7 @@
 package me.kruase.kotlin_plugin_template
 
+import me.kruase.kotlin_plugin_template.Template.Companion.instance
+import me.kruase.kotlin_plugin_template.Template.Companion.userConfig
 import org.bukkit.command.TabExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.Command
@@ -18,16 +20,22 @@ class TemplateCommands : TabExecutor {
     ): List<String> {
         val fullArgs = args.dropLast(1)
         return when (fullArgs.getOrNull(0)) {
-            null -> Template.userConfig.messages.help.keys
-                .filter { sender.hasPluginPermission(it.replace("-", ".")) } - "header"
-            "help" -> when {
-                sender.hasPluginPermission("help") -> when (fullArgs.getOrNull(1)) {
-                    null -> Template.userConfig.messages.help.keys
-                        .filter { sender.hasPluginPermission(it.replace("-", ".")) } - "header"
+            null ->
+                userConfig.messages.help.keys
+                    .filter { sender.hasPluginPermission(it.replace("-", ".")) } - "header"
+            "help" ->
+                when {
+                    sender.hasPluginPermission("help") ->
+                        when (fullArgs.getOrNull(1)) {
+                            null ->
+                                userConfig.messages.help.keys
+                                    .filter {
+                                        sender.hasPluginPermission(it.replace("-", "."))
+                                    } - "header"
+                            else -> emptyList()
+                        }
                     else -> emptyList()
                 }
-                else -> emptyList()
-            }
             else -> emptyList()
         }
     }
@@ -39,16 +47,17 @@ class TemplateCommands : TabExecutor {
                 "help" -> help(sender, args.drop(1))
                 "reload" -> {
                     if (!sender.hasPluginPermission("reload")) throw UnsupportedOperationException()
-                    Template.userConfig = Template.instance.getUserConfig()
+
+                    userConfig = instance.getUserConfig()
                 }
             }
         } catch (e: UnsupportedOperationException) {
             sender.sendMessage(
-                "${ChatColor.RED}${Template.userConfig.messages.error["no-permission"] ?: "Error: no-permission"}"
+                "${ChatColor.RED}${userConfig.messages.error["no-permission"] ?: "Error: no-permission"}"
             )
         } catch (e: AssertionError) {
             sender.sendMessage(
-                "${ChatColor.RED}${Template.userConfig.messages.error["invalid-command"] ?: "Error: invalid-command"}"
+                "${ChatColor.RED}${userConfig.messages.error["invalid-command"] ?: "Error: invalid-command"}"
             )
         } catch (e: IllegalStateException) {
             // "Unknown error" should never happen
@@ -58,12 +67,12 @@ class TemplateCommands : TabExecutor {
         return true
     }
 
-    private fun playerOnly(sender: CommandSender, command: (Player, Array<out String>) -> Unit, args: Array<out String>) {
+    private fun playerOnly(sender: CommandSender, command: (Player, List<String>) -> Unit, args: List<String>) {
         when (sender) {
             is Player -> command(sender, args)
-            else -> sender.sendMessage(
-                "${ChatColor.RED}${Template.userConfig.messages.error["player-only"] ?: "Error: player-only"}"
-            )
+            else ->
+                sender
+                    .sendMessage("${ChatColor.RED}${userConfig.messages.error["player-only"] ?: "Error: player-only"}")
         }
     }
 }
