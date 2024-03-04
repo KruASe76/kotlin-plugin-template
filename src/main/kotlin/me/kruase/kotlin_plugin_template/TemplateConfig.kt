@@ -4,16 +4,6 @@ import java.io.File
 import org.bukkit.configuration.file.FileConfiguration
 
 
-val allPaths = listOf(
-    "messages.error.no-permission",
-    "messages.error.invalid-command",
-    "messages.error.player-only",
-    "messages.help.header",
-    "messages.help.help",
-    "messages.help.reload",
-)
-
-
 data class TemplateConfig(private val config: FileConfiguration) {
     val messages = MessagesConfig(config)
 }
@@ -23,8 +13,6 @@ fun Template.getUserConfig(): TemplateConfig {
     return try {
         saveDefaultConfig()
         reloadConfig()
-
-        if ((allPaths - config.getKeys(true)).isNotEmpty()) throw NullPointerException()
 
         TemplateConfig(config)
     } catch (e: Exception) {
