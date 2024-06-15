@@ -1,7 +1,7 @@
 package me.kruase.kotlin_plugin_template
 
-import java.io.File
 import org.bukkit.configuration.file.FileConfiguration
+import java.io.File
 
 
 data class TemplateConfig(private val config: FileConfiguration) {
@@ -10,30 +10,47 @@ data class TemplateConfig(private val config: FileConfiguration) {
 
 
 fun Template.getUserConfig(): TemplateConfig {
+    val configFile = File(dataFolder, "config.yml")
+    val tempConfigFile = File(dataFolder, "temp-config.yml")
+    val oldConfigFile = File(dataFolder, "old-config-${System.currentTimeMillis()}.yml")
+
     return try {
         saveDefaultConfig()
         reloadConfig()
 
+        // validating current config
+        val currentConfigKeys = config.getKeys(true)
+
+        configFile.renameTo(tempConfigFile)
+        saveDefaultConfig()
+        reloadConfig()
+
+        val defaultConfigKeys = config.getKeys(true)
+
+        if ((defaultConfigKeys - currentConfigKeys).isNotEmpty())
+            throw NullPointerException()
+        else {
+            configFile.delete()
+            tempConfigFile.renameTo(configFile)
+            reloadConfig()
+        }
+
         TemplateConfig(config)
     } catch (e: Exception) {
         when (e) {
-            is NullPointerException, is NumberFormatException -> {
-                newDefaultConfig()
+            is NullPointerException -> {
+                logger.severe("Invalid $name config detected! Creating a new one (default)...")
+
+                tempConfigFile.renameTo(oldConfigFile)
+
+                logger.info("New (default) config created!")
+
                 TemplateConfig(config)
             }
             else -> throw e
         }
-    }.also { logger.info("Config loaded!") }
-}
-
-fun Template.newDefaultConfig() {
-    logger.severe("Invalid $name config detected! Creating a new one (default)...")
-    File(dataFolder, "config.yml").renameTo(
-        File(dataFolder, "config.yml.old-${System.currentTimeMillis()}")
-    )
-    saveDefaultConfig()
-    reloadConfig()
-    logger.info("New (default) config created!")
+    }
+        .also { logger.info("Config loaded!") }
 }
 
 

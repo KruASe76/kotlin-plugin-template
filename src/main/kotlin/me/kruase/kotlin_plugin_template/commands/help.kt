@@ -1,8 +1,8 @@
 package me.kruase.kotlin_plugin_template.commands
 
-import org.bukkit.command.CommandSender
 import me.kruase.kotlin_plugin_template.Template.Companion.userConfig
 import me.kruase.kotlin_plugin_template.util.hasPluginPermission
+import org.bukkit.command.CommandSender
 
 
 fun help(sender: CommandSender, args: List<String>) {
