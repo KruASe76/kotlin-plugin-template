@@ -1,6 +1,6 @@
-name: Template
-version: '${project.version}'
-api-version: '${mcApi.version}'
+name: ${name}
+version: ${project.version}
+api-version: ${mcApi.version}
 main: me.kruase.kotlin_plugin_template.Template
 authors: [ KruASe ]
 
