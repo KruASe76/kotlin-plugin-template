@@ -1,18 +1,37 @@
 package me.kruase.kotlin_plugin_template
 
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.FileConfiguration
 import java.io.File
 
 
 data class TemplateConfig(private val config: FileConfiguration) {
-    val messages = MessagesConfig(config)
+    val messages = MessagesConfig(config.getConfigurationSection("messages")!!)
+}
+
+data class MessagesConfig(private val section: ConfigurationSection) {
+    val help: Map<String, String> =
+        section
+            .getConfigurationSection("help")!!
+            .getKeys(false)
+            .associateWith { section.getString("help.$it")!! }
+    val error: Map<String, String> =
+        section
+            .getConfigurationSection("error")!!
+            .getKeys(false)
+            .associateWith { section.getString("error.$it")!! }
+    val info: Map<String, String> =
+        section
+            .getConfigurationSection("info")!!
+            .getKeys(false)
+            .associateWith { section.getString("info.$it")!! }
 }
 
 
-fun Template.getUserConfig(): TemplateConfig {
+fun Template.getMainConfig(): TemplateConfig {
     val configFile = File(dataFolder, "config.yml")
     val tempConfigFile = File(dataFolder, "temp-config.yml")
-    val oldConfigFile = File(dataFolder, "old-config-${System.currentTimeMillis()}.yml")
+    val oldConfigFile = File(dataFolder, "config-old-${System.currentTimeMillis()}.yml")
 
     return try {
         saveDefaultConfig()
@@ -33,9 +52,9 @@ fun Template.getUserConfig(): TemplateConfig {
             configFile.delete()
             tempConfigFile.renameTo(configFile)
             reloadConfig()
-        }
 
-        TemplateConfig(config)
+            TemplateConfig(config)
+        }
     } catch (e: Exception) {
         when (e) {
             is NullPointerException -> {
@@ -51,23 +70,4 @@ fun Template.getUserConfig(): TemplateConfig {
         }
     }
         .also { logger.info("Config loaded!") }
-}
-
-
-data class MessagesConfig(private val config: FileConfiguration) {
-    val help: Map<String, String> =
-        config
-            .getConfigurationSection("messages.help")!!
-            .getKeys(false)
-            .associateWith { config.getString("messages.help.$it")!! }
-    val error: Map<String, String> =
-        config
-            .getConfigurationSection("messages.error")!!
-            .getKeys(false)
-            .associateWith { config.getString("messages.error.$it")!! }
-    val info: Map<String, String> =
-        config
-            .getConfigurationSection("messages.info")!!
-            .getKeys(false)
-            .associateWith { config.getString("messages.info.$it")!! }
 }

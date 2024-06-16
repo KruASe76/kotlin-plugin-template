@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class Template : JavaPlugin() {
     companion object {
         lateinit var instance: Template
-        lateinit var userConfig: TemplateConfig
+        lateinit var mainConfig: TemplateConfig
     }
 
     override fun onEnable() {
