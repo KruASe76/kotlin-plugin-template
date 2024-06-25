@@ -1,6 +1,7 @@
 package me.kruase.kotlin_plugin_template
 
 import org.bukkit.configuration.ConfigurationSection
+import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.file.FileConfiguration
 import java.io.File
 
@@ -57,7 +58,7 @@ fun Template.getMainConfig(): TemplateConfig {
         }
     } catch (e: Exception) {
         when (e) {
-            is NullPointerException -> {
+            is InvalidConfigurationException, is NullPointerException -> {
                 logger.severe("Invalid $name config detected! Creating a new one (default)...")
 
                 tempConfigFile.renameTo(oldConfigFile)
