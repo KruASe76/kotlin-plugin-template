@@ -1,8 +1,8 @@
 package me.kruase.kotlin_plugin_template
 
-import me.kruase.kotlin_plugin_template.Template.Companion.instance
 import me.kruase.kotlin_plugin_template.Template.Companion.mainConfig
 import me.kruase.kotlin_plugin_template.commands.help
+import me.kruase.kotlin_plugin_template.commands.reload
 import me.kruase.kotlin_plugin_template.util.hasPluginPermission
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
@@ -44,7 +44,7 @@ class TemplateCommands : TabExecutor {
                 "reload" -> {
                     if (!sender.hasPluginPermission("reload")) throw UnsupportedOperationException()
 
-                    mainConfig = instance.getMainConfig()
+                    reload(sender)
                 }
             }
         } catch (e: Exception) {
